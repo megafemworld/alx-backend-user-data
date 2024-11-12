@@ -16,9 +16,9 @@ class Auth:
         """
         if path is None or not excluded_paths or excluded_paths == []:
             return True
-        np = path.rstrip('/')
-        nep = [excluded_paths.rstrip('/') for excluded_p in excluded_paths]
-        if np not in nep:
+        path = path.rstrip('/')
+        es = [excluded_paths.rstrip('/') for excluded_p in excluded_paths]
+        if path not in es:
             return True
         return False
 
