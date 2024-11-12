@@ -14,13 +14,13 @@ class Auth:
         """
             check for Authorization
         """
-        if path is None or not excluded_paths:
+        if path is None or not excluded_paths or excluded_paths == []:
             return True
         np = path.rstrip('/')
         nep = [excluded_paths.rstrip('/') for excluded_p in excluded_paths]
-        if np in nep:
-            return False
-        return True
+        if np not in nep:
+            return True
+        return False
 
     def authorization_header(self, request=None) -> str:
         """
