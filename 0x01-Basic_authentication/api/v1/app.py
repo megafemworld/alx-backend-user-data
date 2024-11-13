@@ -21,6 +21,9 @@ if auth:
 
 @app.before_request
 def auth_br():
+    """
+        before sever
+    """
     authl = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth is None:
         return
