@@ -2,6 +2,7 @@
 """
 Route module for the API
 check which authentication to use
+Handle erorr of request & server
 """
 from os import getenv
 from api.v1.views import app_views
@@ -28,6 +29,7 @@ def auth_br():
     """
         check request sent to the server
         before proccessing it
+        know if the request is authorized, found etc.
     """
     authl = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth is None:
