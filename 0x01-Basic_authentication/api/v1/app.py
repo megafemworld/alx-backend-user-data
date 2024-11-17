@@ -25,7 +25,7 @@ elif Auth == "auth":
 
 
 @app.before_request
-def auth_br():
+def Auth():
     """
         check request sent to the server
         before proccessing it
