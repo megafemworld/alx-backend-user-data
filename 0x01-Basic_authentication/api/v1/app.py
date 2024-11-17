@@ -66,7 +66,8 @@ def before_auth():
 # Error handler for 404 Not Found
 @app.errorhandler(404)
 def not_found(error) -> str:
-    """ Not found error handler. Returns JSON error response with HTTP 404 status.
+    """ Not found error handler. Returns JSON error response with
+    HTTP 404 status.
     """
     return jsonify({"error": "Not found"}), 404
 
@@ -74,7 +75,8 @@ def not_found(error) -> str:
 # Error handler for 401 Unauthorized
 @app.errorhandler(401)
 def unauthorized_access(error) -> str:
-    """ Unauthorized error handler. Returns JSON error response with HTTP 401 status.
+    """ Unauthorized error handler. Returns JSON error response
+    with HTTP 401 status.
     """
     return jsonify({"error": "Unauthorized"}), 401
 
@@ -82,7 +84,8 @@ def unauthorized_access(error) -> str:
 # Error handler for 403 Forbidden
 @app.errorhandler(403)
 def forbidden_access(error) -> str:
-    """ Forbidden access error handler. Returns JSON error response with HTTP 403 status.
+    """ Forbidden access error handler. Returns JSON error response with
+    HTTP 403 status.
     """
     return jsonify({"error": "Forbidden"}), 403
 
