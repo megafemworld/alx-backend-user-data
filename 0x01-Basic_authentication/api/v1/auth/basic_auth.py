@@ -26,7 +26,7 @@ class BasicAuth(Auth):
             return None
         else:
             delt = "Basic "
-            return authorization_header.split(delt, 1)[-1]
+            return authorization_header.split(delt, 1)[-1].strip()
 
     def decode_base64_authorization_header(
             self, base64_authorization_header: str) -> str:
@@ -72,6 +72,8 @@ class BasicAuth(Auth):
             user = User.search({'email': user_email})
         except Exception:
             return None
+        if not user:
+            return None
         user = user[0]
         if not user.is_valid_password(user_pwd):
             return None
@@ -81,8 +83,8 @@ class BasicAuth(Auth):
         """
             retrieves the User instance for a request:
         """
-        self.ah = self.authorization_header(request)
-        self.ext_b = self.extract_base64_authorization_header(self.ah)
-        self.base_auth = self.decode_base64_authorization_header(self.ext_b)
-        self.email, self.paswd = self.extract_user_credentials(self.base_auth)
-        return self.user_object_from_credentials(self.email, self.paswd)
+        ah = self.authorization_header(request)
+        ext_b = self.extract_base64_authorization_header(ah)
+        base_auth = self.decode_base64_authorization_header(ext_b)
+        email, paswd = self.extract_user_credentials(base_auth)
+        return self.user_object_from_credentials(email, paswd)
