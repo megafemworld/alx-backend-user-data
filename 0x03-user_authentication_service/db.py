@@ -39,6 +39,6 @@ class DB:
             current_session.add(new_user)
             current_session.commit()
         except Exception:
-            session.rollback()
+            current_session.rollback()
             new_user = None
         return new_user
