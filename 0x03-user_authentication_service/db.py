@@ -34,11 +34,11 @@ class DB:
         """save the user to the database
         """
         current_session = self._session
+        new_user = User(email=email, hashed_password=hashed_password)
         try:
-            new_user = User(email=email, hashed_password=hashed_password)
             current_session.add(new_user)
             current_session.commit()
         except Exception:
             current_session.rollback()
-            new_user = None
+            raise
         return new_user
