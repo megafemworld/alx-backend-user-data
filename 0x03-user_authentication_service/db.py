@@ -34,7 +34,11 @@ class DB:
         """save the user to the database
         """
         current_session = self._session
-        new_user = User(email=email, hashed_password=hashed_password)
-        current_session.add(new_user)
-        current_session.commit()
+        try:
+            new_user = User(email=email, hashed_password=hashed_password)
+            current_session.add(new_user)
+            current_session.commit()
+        except Exception:
+            session.rollback()
+            new_user = None
         return new_user
