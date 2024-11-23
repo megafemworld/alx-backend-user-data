@@ -49,14 +49,3 @@ class DB:
                 raise InvalidRequestError
         return self._session.query(User).filter_by(**kwargs).one()
 
-    def update_user(self, user_id, **kwargs):
-        """
-            update the user’s attributes as passed in the method’s arguments
-        """
-        user = self.find_user_by(id=user_id)
-        for key, value in kwargs.items():
-            if nor hasattr(User, key):
-                raise ValueError
-            setattr(user, key, value)
-        self._session.commit()
-
