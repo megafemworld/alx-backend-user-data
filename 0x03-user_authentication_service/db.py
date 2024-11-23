@@ -3,20 +3,20 @@
 """
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from typing import Mapping
+
 from user import Base, User
 
 
 class DB:
     """DB class
     """
+
     def __init__(self) -> None:
         """Initialize a new DB instance
         """
-        self._engine = create_engine("sqlite:///a.db", echo=False)
+        self._engine = create_engine("sqlite:///a.db", echo=True)
         Base.metadata.drop_all(self._engine)
         Base.metadata.create_all(self._engine)
         self.__session = None
@@ -31,16 +31,13 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Adds a user to db
-
-        Params:
-           - email(str): user email
-           - h_pwd(str): user hashed password
-
-        Returns:
-           User object
+        """save the user to the database
         """
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
-        self._session.commit()
-        return user
+        try:
+            new_user = User(email=email, hashed_password=hashed_password)
+            self.__session.add(new_user)
+            self.__session.commit()
+        except Exception:
+            self._session.rollback()
+            new_user = None
+        return new_user
