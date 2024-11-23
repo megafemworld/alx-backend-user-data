@@ -44,7 +44,7 @@ class DB:
         returns the first row found in the users table
         as filtered by the method’s input arguments.
         """
-        for key, in kwargs:
+        for key in kwargs:
             if not hasattr(User, key):
                 raise InvalidRequestError
         return self._session.query(User).filter_by(**kwargs).one()
