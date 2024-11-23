@@ -32,8 +32,13 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """save the user to the database
+        Params:
+           - email(str): user email
+           - h_pwd(str): user hashed password
+
+        Returns:
+           User object
         """
-        current_session = self._session
         new_user = User(email=email, hashed_password=hashed_password)
         try:
             self._session.add(new_user)
