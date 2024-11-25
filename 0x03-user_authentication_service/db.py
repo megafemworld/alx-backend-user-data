@@ -48,3 +48,15 @@ class DB:
             if not hasattr(User, key):
                 raise InvalidRequestError
         return self._session.query(User).filter_by(**kwargs).one()
+
+    def update_user(user_id, **kwargs):
+        """
+        Locate the user to update
+        then will update the user’s attributes as passed in the method’s arguments
+        """
+        user = self.find_user_by(id=user_id)
+        for key, value in kwargs:
+            if not hasattr(User, key):
+                raise ValueError
+            setattr(user, key, value)
+        self._session.commit()
