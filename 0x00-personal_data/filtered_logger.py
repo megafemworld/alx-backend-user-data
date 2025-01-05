@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
-import re
-"""_summary_
+""" MOdule for personal data redaction
 """
+import re
+from typing import List
 
-def filter_datum(fields, redaction, message, seperator):
-    """_summary_
 
+def filter_datum(fields: List[str], redaction: str,
+                 message: str, seperator: str) -> str:
+    """Filter_datum the message by replacing
+    the fields with the redaction
     Args:
-        fields (_type_): _description_
-        redaction (_type_): _description_
-        message (_type_): _description_
-        seperator (_type_): _description_
+        fields (List): List of fields to redact
+        redaction (string): representing by what the
+        field will be obfuscated
+        message (string): a string representing the log line
+        seperator (string): representing by which character
+        is separating all fields in the log
     """
-    for field in fields:
-            re.sub(f'{field}=.*?{seperator}', redaction, message)               
+    for f in fields:
+        message = re.sub(
+            f'{f}=.*?{seperator}', f'{f}={redaction}{seperator}', message)
+    return message
