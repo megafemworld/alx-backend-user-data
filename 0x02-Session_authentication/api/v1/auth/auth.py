@@ -38,3 +38,13 @@ class Auth:
             Retrieve the User sending request
         """
         return None
+    
+    def session_cookie(self, request=None):
+        """ returns a cookie value from a request
+
+        Args:
+            request (_type_, optional): _description_. Defaults to None.
+        """
+        if request is None:
+            return None
+        return request.cookies.get('_my_session_id')
