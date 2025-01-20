@@ -63,7 +63,7 @@ def before_auth():
         abort(401)
 
     if auth.session_cookie(request) is None:
-        abort(401)
+        abort(403)
 
     # Ensure the current user is authenticated
     if auth.current_user(request) is None:
