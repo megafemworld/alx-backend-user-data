@@ -47,7 +47,8 @@ def before_auth():
         HTTP 403 if user authentication fails
     """
     # List of paths that do not require authentication
-    authl = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    authl = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/',
+             '/api/v1/auth_session/login/']
 
     # Skip further checks if no authentication method is configured
     if auth is None:
@@ -59,6 +60,9 @@ def before_auth():
 
     # Check for the presence of an authorization header
     if auth.authorization_header(request) is None:
+        abort(401)
+
+    if auth.session_cookie(request) is None:
         abort(401)
 
     # Ensure the current user is authenticated
