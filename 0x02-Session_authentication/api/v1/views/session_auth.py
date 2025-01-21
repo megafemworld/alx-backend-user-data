@@ -28,8 +28,8 @@ def login() -> str:
     user = User.search({'email': email})
     if user is None:
         return jsonify({"error": "no user found for this email"}), 401
-    user = User({'email': email, 'password': password})
-    if not user.is_valid_password(password):
+    user_pass = User({'email': email, 'password': password})
+    if not user_pass.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
     else:
         from api.v1.app import auth
